@@ -791,133 +791,65 @@
     <p class="section-lead light" data-lang="ko">한국 가톨릭 공동체의 가장 큰 필요가 무엇인지 알려주세요. 여러분의 목소리가 우리의 우선순위를 결정합니다. 해당되는 것을 모두 선택하고, 여러분의 의견을 나눠주세요.</p>
 
     <div class="poll-intro">
-      <!-- LEFT: CHECKBOXES -->
+      <!-- LEFT: CHECKBOXES — labels rendered by JS to avoid data-lang blocking inputs -->
       <div class="poll-box">
-        <h3 data-lang="en">What are the biggest challenges facing our Catholic community?</h3>
-        <h3 data-lang="ko">우리 가톨릭 공동체가 직면한 가장 큰 도전은 무엇인가요?</h3>
+        <h3 id="poll-question-title">What are the biggest challenges facing our Catholic community?</h3>
         <ul class="poll-options" id="poll-options">
-          <li class="poll-option">
-            <input type="checkbox" id="c1" name="challenge" value="youth">
-            <label for="c1">
-              <span data-lang="en">Youth faith formation & engagement</span>
-              <span data-lang="ko">청소년 신앙 교육 및 참여</span>
-            </label>
-          </li>
-          <li class="poll-option">
-            <input type="checkbox" id="c2" name="challenge" value="elderly">
-            <label for="c2">
-              <span data-lang="en">Care for elderly & isolated members</span>
-              <span data-lang="ko">노인 및 고립된 구성원 돌봄</span>
-            </label>
-          </li>
-          <li class="poll-option">
-            <input type="checkbox" id="c3" name="challenge" value="family">
-            <label for="c3">
-              <span data-lang="en">Family stability & marriage support</span>
-              <span data-lang="ko">가정 안정 및 혼인 지원</span>
-            </label>
-          </li>
-          <li class="poll-option">
-            <input type="checkbox" id="c4" name="challenge" value="poverty">
-            <label for="c4">
-              <span data-lang="en">Poverty & economic hardship</span>
-              <span data-lang="ko">빈곤 및 경제적 어려움</span>
-            </label>
-          </li>
-          <li class="poll-option">
-            <input type="checkbox" id="c5" name="challenge" value="multicultural">
-            <label for="c5">
-              <span data-lang="en">Multicultural & migrant community support</span>
-              <span data-lang="ko">다문화 및 이민자 공동체 지원</span>
-            </label>
-          </li>
-          <li class="poll-option">
-            <input type="checkbox" id="c6" name="challenge" value="mental">
-            <label for="c6">
-              <span data-lang="en">Mental health & spiritual wellbeing</span>
-              <span data-lang="ko">정신 건강 및 영적 안녕</span>
-            </label>
-          </li>
-          <li class="poll-option">
-            <input type="checkbox" id="c7" name="challenge" value="vocations">
-            <label for="c7">
-              <span data-lang="en">Supporting vocations to priesthood & religious life</span>
-              <span data-lang="ko">성직 및 수도 성소 지원</span>
-            </label>
-          </li>
-          <li class="poll-option">
-            <input type="checkbox" id="c8" name="challenge" value="prolife">
-            <label for="c8">
-              <span data-lang="en">Pro-life initiatives & family values</span>
-              <span data-lang="ko">생명 존중 활동 및 가족 가치</span>
-            </label>
-          </li>
+          <li class="poll-option"><input type="checkbox" id="c1" value="youth"><label for="c1" id="lbl-youth">Youth faith formation &amp; engagement</label></li>
+          <li class="poll-option"><input type="checkbox" id="c2" value="elderly"><label for="c2" id="lbl-elderly">Care for elderly &amp; isolated members</label></li>
+          <li class="poll-option"><input type="checkbox" id="c3" value="family"><label for="c3" id="lbl-family">Family stability &amp; marriage support</label></li>
+          <li class="poll-option"><input type="checkbox" id="c4" value="poverty"><label for="c4" id="lbl-poverty">Poverty &amp; economic hardship</label></li>
+          <li class="poll-option"><input type="checkbox" id="c5" value="multicultural"><label for="c5" id="lbl-multicultural">Multicultural &amp; migrant community support</label></li>
+          <li class="poll-option"><input type="checkbox" id="c6" value="mental"><label for="c6" id="lbl-mental">Mental health &amp; spiritual wellbeing</label></li>
+          <li class="poll-option"><input type="checkbox" id="c7" value="vocations"><label for="c7" id="lbl-vocations">Supporting vocations to priesthood &amp; religious life</label></li>
+          <li class="poll-option"><input type="checkbox" id="c8" value="prolife"><label for="c8" id="lbl-prolife">Pro-life initiatives &amp; family values</label></li>
         </ul>
         <div class="poll-other">
           <input type="text" id="poll-other-text" placeholder="Other — tell us what you think... / 기타 의견을 알려주세요...">
         </div>
-        <button class="poll-submit" onclick="submitPoll()" data-lang="en">Submit My Vote</button>
-        <button class="poll-submit" onclick="submitPoll()" data-lang="ko" style="display:none">투표 제출하기</button>
-        <div class="poll-result" id="poll-result">
-          <span data-lang="en">✠ Thank you — your voice has been heard. May God bless your service.</span>
-          <span data-lang="ko">✠ 감사합니다 — 여러분의 목소리를 소중히 담겠습니다. 하느님께서 여러분의 봉사에 축복 내리시길 빕니다.</span>
+        <button class="poll-submit" id="btn-submit-poll" onclick="submitPoll()">Submit My Vote</button>
+        <div class="poll-result" id="poll-result" style="display:none">
+          ✠ <span id="poll-thanks-msg">Thank you — your voice has been heard. May God bless your service.</span>
         </div>
       </div>
 
-      <!-- RIGHT: SURVEY FORM -->
+      <!-- RIGHT: SURVEY FORM — plain labels, no data-lang on form elements -->
       <div class="survey-box">
-        <h3 data-lang="en">Tell Us More About You</h3>
-        <h3 data-lang="ko">여러분에 대해 더 알려주세요</h3>
+        <h3 id="survey-title">Tell Us More About You</h3>
         <div class="form-row">
-          <label data-lang="en">Your Name (Optional)</label>
-          <label data-lang="ko">성함 (선택사항)</label>
+          <label id="lbl-sname">Your Name (Optional)</label>
           <input type="text" id="s-name" placeholder="John Kim / 김요한">
         </div>
         <div class="form-row">
-          <label data-lang="en">Parish / Diocese</label>
-          <label data-lang="ko">본당 / 교구</label>
+          <label id="lbl-sparish">Parish / Diocese</label>
           <input type="text" id="s-parish" placeholder="e.g. Myeongdong Cathedral / 명동성당">
         </div>
         <div class="form-row">
-          <label data-lang="en">Your Role in the Community</label>
-          <label data-lang="ko">공동체에서의 역할</label>
+          <label id="lbl-srole">Your Role in the Community</label>
           <select id="s-role">
-            <option value="" data-lang="en">Select...</option>
-            <option value="" data-lang="ko">선택하세요...</option>
-            <option value="knight" data-lang="en">Current Knight</option>
-            <option value="knight" data-lang="ko">현 기사단원</option>
-            <option value="interested" data-lang="en">Interested in Joining</option>
-            <option value="interested" data-lang="ko">가입 희망</option>
-            <option value="parishioner" data-lang="en">Parishioner</option>
-            <option value="parishioner" data-lang="ko">본당 신자</option>
-            <option value="priest" data-lang="en">Priest / Religious</option>
-            <option value="priest" data-lang="ko">성직자 / 수도자</option>
-            <option value="other" data-lang="en">Other</option>
-            <option value="other" data-lang="ko">기타</option>
+            <option value="">Select... / 선택하세요...</option>
+            <option value="knight">Current Knight / 현 기사단원</option>
+            <option value="interested">Interested in Joining / 가입 희망</option>
+            <option value="parishioner">Parishioner / 본당 신자</option>
+            <option value="priest">Priest / Religious / 성직자·수도자</option>
+            <option value="other">Other / 기타</option>
           </select>
         </div>
         <div class="form-row">
-          <label data-lang="en">If we could only focus on ONE area this year, what would it be?</label>
-          <label data-lang="ko">올해 단 하나에만 집중해야 한다면, 무엇이어야 할까요?</label>
+          <label id="lbl-spriority">If we could only focus on ONE area this year, what would it be?</label>
           <textarea id="s-priority" placeholder="Share your thoughts... / 의견을 나눠주세요..."></textarea>
         </div>
         <div class="form-row">
-          <label data-lang="en">Would you like to volunteer or help?</label>
-          <label data-lang="ko">자원봉사 또는 도움을 제공하고 싶으신가요?</label>
+          <label id="lbl-svolunteer">Would you like to volunteer or help?</label>
           <select id="s-volunteer">
-            <option data-lang="en">Yes, I'd love to help</option>
-            <option data-lang="ko">네, 돕고 싶습니다</option>
-            <option data-lang="en">Maybe — tell me more</option>
-            <option data-lang="ko">가능할 것 같습니다 — 더 알고 싶습니다</option>
-            <option data-lang="en">Not at this time</option>
-            <option data-lang="ko">지금은 어렵습니다</option>
+            <option value="yes">Yes, I'd love to help / 네, 돕고 싶습니다</option>
+            <option value="maybe">Maybe — tell me more / 더 알고 싶습니다</option>
+            <option value="no">Not at this time / 지금은 어렵습니다</option>
           </select>
         </div>
-        <button class="poll-submit" onclick="submitSurvey()" data-lang="en">Submit Survey</button>
-        <button class="poll-submit" onclick="submitSurvey()" data-lang="ko" style="display:none">설문 제출하기</button>
-        <div class="poll-result" id="survey-result">
-          <span data-lang="en">✠ Your survey has been received. Thank you for helping us serve better.</span>
-          <span data-lang="ko">✠ 설문이 접수되었습니다. 더 나은 봉사를 위해 도와주셔서 감사합니다.</span>
+        <button class="poll-submit" id="btn-submit-survey" onclick="submitSurvey()">Submit Survey</button>
+        <div class="poll-result" id="survey-result" style="display:none">
+          ✠ <span id="survey-thanks-msg">Your survey has been received. Thank you for helping us serve better.</span>
         </div>
       </div>
     </div>
@@ -981,8 +913,118 @@
 // ═══════════════════════════════════════════════════════
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxkfwAg8Peo5ObpVCHoWlc5CafgeaJU-BYMWIi9TdEf_sKFCk5riM2GC_aI9Y2VopON/exec';
 
+// ─── ALL UI STRINGS ────────────────────────────────────
+const T = {
+  en: {
+    pollTitle:     'What are the biggest challenges facing our Catholic community?',
+    youth:         'Youth faith formation & engagement',
+    elderly:       'Care for elderly & isolated members',
+    family:        'Family stability & marriage support',
+    poverty:       'Poverty & economic hardship',
+    multicultural: 'Multicultural & migrant community support',
+    mental:        'Mental health & spiritual wellbeing',
+    vocations:     'Supporting vocations to priesthood & religious life',
+    prolife:       'Pro-life initiatives & family values',
+    submitVote:    'Submit My Vote',
+    sending:       'Sending...',
+    voteThanks:    'Thank you — your voice has been heard. May God bless your service.',
+    selectOne:     'Please select at least one option.',
+    surveyTitle:   'Tell Us More About You',
+    sname:         'Your Name (Optional)',
+    sparish:       'Parish / Diocese',
+    srole:         'Your Role in the Community',
+    spriority:     'If we could only focus on ONE area this year, what would it be?',
+    svolunteer:    'Would you like to volunteer or help?',
+    submitSurvey:  'Submit Survey',
+    surveyThanks:  'Your survey has been received. Thank you for helping us serve better.',
+    liveResults:   'Live Community Results',
+    votes:         function(n) { return n + ' vote' + (n !== 1 ? 's' : ''); },
+    contactThanks: '✠ Thank you for your message! We will be in touch soon.',
+    fillFields:    'Please enter your name and message.',
+    sendMsg:       'Send Message',
+  },
+  ko: {
+    pollTitle:     '우리 가톨릭 공동체가 직면한 가장 큰 도전은 무엇인가요?',
+    youth:         '청소년 신앙 교육 및 참여',
+    elderly:       '노인 및 고립된 구성원 돌봄',
+    family:        '가정 안정 및 혼인 지원',
+    poverty:       '빈곤 및 경제적 어려움',
+    multicultural: '다문화 및 이민자 공동체 지원',
+    mental:        '정신 건강 및 영적 안녕',
+    vocations:     '성직 및 수도 성소 지원',
+    prolife:       '생명 존중 활동 및 가족 가치',
+    submitVote:    '투표 제출하기',
+    sending:       '처리 중...',
+    voteThanks:    '감사합니다 — 여러분의 목소리를 소중히 담겠습니다. 하느님께서 여러분의 봉사에 축복 내리시길 빕니다.',
+    selectOne:     '최소 하나를 선택해 주세요.',
+    surveyTitle:   '여러분에 대해 더 알려주세요',
+    sname:         '성함 (선택사항)',
+    sparish:       '본당 / 교구',
+    srole:         '공동체에서의 역할',
+    spriority:     '올해 단 하나에만 집중해야 한다면, 무엇이어야 할까요?',
+    svolunteer:    '자원봉사 또는 도움을 제공하고 싶으신가요?',
+    submitSurvey:  '설문 제출하기',
+    surveyThanks:  '설문이 접수되었습니다. 더 나은 봉사를 위해 도와주셔서 감사합니다.',
+    liveResults:   '실시간 커뮤니티 투표 결과',
+    votes:         function(n) { return n + '표'; },
+    contactThanks: '✠ 메시지 감사합니다! 곧 연락 드리겠습니다.',
+    fillFields:    '성함과 메시지를 입력해 주세요.',
+    sendMsg:       '메시지 보내기',
+  }
+};
+
+let currentLang = 'en';
+function t(key) { return T[currentLang][key]; }
+
+// ─── CHALLENGE DEFINITIONS ─────────────────────────────
+const challenges = [
+  { id: 'youth' }, { id: 'elderly' }, { id: 'family' }, { id: 'poverty' },
+  { id: 'multicultural' }, { id: 'mental' }, { id: 'vocations' }, { id: 'prolife' },
+];
+
+// ─── APPLY TRANSLATIONS TO THE PAGE ──────────────────
+function applyTranslations() {
+  const lang = currentLang;
+  // Poll section
+  const qt = document.getElementById('poll-question-title');
+  if (qt) qt.textContent = T[lang].pollTitle;
+  challenges.forEach(c => {
+    const el = document.getElementById('lbl-' + c.id);
+    if (el) el.textContent = T[lang][c.id];
+  });
+  const bvote = document.getElementById('btn-submit-poll');
+  if (bvote && !bvote.disabled) bvote.textContent = T[lang].submitVote;
+  const pthanks = document.getElementById('poll-thanks-msg');
+  if (pthanks) pthanks.textContent = T[lang].voteThanks;
+
+  // Survey section
+  const st = document.getElementById('survey-title');
+  if (st) st.textContent = T[lang].surveyTitle;
+  const labelMap = {
+    'lbl-sname': 'sname', 'lbl-sparish': 'sparish', 'lbl-srole': 'srole',
+    'lbl-spriority': 'spriority', 'lbl-svolunteer': 'svolunteer'
+  };
+  Object.entries(labelMap).forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = T[lang][key];
+  });
+  const bsurvey = document.getElementById('btn-submit-survey');
+  if (bsurvey && !bsurvey.disabled) bsurvey.textContent = T[lang].submitSurvey;
+  const sthanks = document.getElementById('survey-thanks-msg');
+  if (sthanks) sthanks.textContent = T[lang].surveyThanks;
+
+  // Live results heading
+  document.querySelectorAll('.results-bar-section h3').forEach(el => {
+    el.textContent = T[lang].liveResults;
+  });
+
+  // Re-render bars with translated labels
+  renderResults();
+}
+
 // ─── LANGUAGE TOGGLE ───────────────────────────────────
 function setLang(lang) {
+  currentLang = lang;
   document.body.classList.toggle('lang-ko', lang === 'ko');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
@@ -991,29 +1033,8 @@ function setLang(lang) {
     if (!l) return;
     a.style.display = (l === lang) ? 'inline-block' : 'none';
   });
-  document.querySelectorAll('.poll-submit').forEach(btn => {
-    const l = btn.getAttribute('data-lang');
-    if (!l) return;
-    btn.style.display = (l === lang) ? 'block' : 'none';
-  });
-  renderResults();
+  applyTranslations();
 }
-
-document.querySelectorAll('nav a').forEach(a => {
-  a.style.display = a.getAttribute('data-lang') === 'en' ? 'inline-block' : 'none';
-});
-
-// ─── CHALLENGE DEFINITIONS ─────────────────────────────
-const challenges = [
-  { id: 'youth',         en: 'Youth faith formation & engagement',        ko: '청소년 신앙 교육 및 참여' },
-  { id: 'elderly',       en: 'Care for elderly & isolated members',       ko: '노인 및 고립된 구성원 돌봄' },
-  { id: 'family',        en: 'Family stability & marriage support',       ko: '가정 안정 및 혼인 지원' },
-  { id: 'poverty',       en: 'Poverty & economic hardship',               ko: '빈곤 및 경제적 어려움' },
-  { id: 'multicultural', en: 'Multicultural & migrant community support', ko: '다문화 및 이민자 공동체 지원' },
-  { id: 'mental',        en: 'Mental health & spiritual wellbeing',       ko: '정신 건강 및 영적 안녕' },
-  { id: 'vocations',     en: 'Supporting vocations',                      ko: '성직 및 수도 성소 지원' },
-  { id: 'prolife',       en: 'Pro-life initiatives & family values',      ko: '생명 존중 활동 및 가족 가치' },
-];
 
 // ─── LOCAL VOTE CACHE ──────────────────────────────────
 let localVotes = {};
@@ -1022,20 +1043,16 @@ try { localVotes = JSON.parse(localStorage.getItem('koc_votes') || '{}'); } catc
 // ─── RENDER RESULTS BARS ──────────────────────────────
 function renderResults(votesObj) {
   const votes = votesObj || localVotes;
-  const total = Math.max(Object.values(votes).reduce((a,b) => a + Number(b), 0), 1);
-  const lang  = document.body.classList.contains('lang-ko') ? 'ko' : 'en';
-  document.getElementById('results-bars').innerHTML = challenges.map(c => {
+  const total = Math.max(Object.values(votes).reduce(function(a,b){ return a + Number(b); }, 0), 1);
+  const lang  = currentLang;
+  document.getElementById('results-bars').innerHTML = challenges.map(function(c) {
     const count = Number(votes[c.id] || 0);
     const pct   = Math.round((count / total) * 100);
-    return `<div class="result-bar-row">
-      <div class="label">
-        <span>${c[lang]}</span>
-        <span>${count} vote${count !== 1 ? 's' : ''} · ${pct}%</span>
-      </div>
-      <div class="bar-track">
-        <div class="bar-fill" style="width:${pct}%"></div>
-      </div>
-    </div>`;
+    return '<div class="result-bar-row">' +
+      '<div class="label"><span>' + T[lang][c.id] + '</span>' +
+      '<span>' + T[lang].votes(count) + ' · ' + pct + '%</span></div>' +
+      '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%"></div></div>' +
+      '</div>';
   }).join('');
 }
 
@@ -1045,7 +1062,7 @@ async function fetchLiveVotes() {
     renderResults(localVotes); return;
   }
   try {
-    const res  = await fetch(`${APPS_SCRIPT_URL}?action=getVotes`);
+    const res  = await fetch(APPS_SCRIPT_URL + '?action=getVotes');
     const data = await res.json();
     if (data.status === 'ok' && data.totals) {
       localVotes = data.totals;
@@ -1058,47 +1075,42 @@ async function fetchLiveVotes() {
 // ─── POST TO GOOGLE SHEETS ────────────────────────────
 async function postToSheet(payload) {
   if (APPS_SCRIPT_URL === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') return { status: 'ok' };
-  const res = await fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    body: JSON.stringify(payload),
-  });
+  const res = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
   return res.json();
 }
 
 // ─── SUBMIT POLL VOTE ─────────────────────────────────
 async function submitPoll() {
-  const ko      = document.body.classList.contains('lang-ko');
   const checked = Array.from(document.querySelectorAll('#poll-options input:checked'));
-  if (checked.length === 0) {
-    alert(ko ? '최소 하나를 선택해 주세요.' : 'Please select at least one option.');
-    return;
-  }
-  const allBtns = document.querySelectorAll('.poll-box .poll-submit');
-  allBtns.forEach(b => { b.disabled = true; b.style.opacity = '0.6'; });
+  if (checked.length === 0) { alert(t('selectOne')); return; }
+
+  const btn = document.getElementById('btn-submit-poll');
+  btn.disabled = true;
+  btn.textContent = t('sending');
 
   const payload = { type: 'vote' };
-  challenges.forEach(c => { payload[c.id] = false; });
-  checked.forEach(i => { payload[i.value] = true; });
+  challenges.forEach(function(c) { payload[c.id] = false; });
+  checked.forEach(function(i) { payload[i.value] = true; });
   payload.other = document.getElementById('poll-other-text').value.trim();
 
   // Optimistic local update
-  checked.forEach(i => { localVotes[i.value] = (Number(localVotes[i.value]) || 0) + 1; });
+  checked.forEach(function(i) { localVotes[i.value] = (Number(localVotes[i.value]) || 0) + 1; });
   localStorage.setItem('koc_votes', JSON.stringify(localVotes));
   renderResults(localVotes);
 
   try { await postToSheet(payload); await fetchLiveVotes(); } catch(e) {}
 
-  allBtns.forEach(b => { b.style.opacity = '1'; });
   document.getElementById('poll-result').style.display = 'block';
-  document.querySelectorAll('#poll-options input').forEach(i => i.disabled = true);
+  document.querySelectorAll('#poll-options input').forEach(function(i) { i.disabled = true; });
   document.getElementById('poll-other-text').disabled = true;
+  btn.textContent = t('submitVote');
 }
 
 // ─── SUBMIT SURVEY ────────────────────────────────────
 async function submitSurvey() {
-  const ko      = document.body.classList.contains('lang-ko');
-  const allBtns = document.querySelectorAll('.survey-box .poll-submit');
-  allBtns.forEach(b => { b.disabled = true; b.textContent = ko ? '처리 중...' : 'Sending...'; });
+  const btn = document.getElementById('btn-submit-survey');
+  btn.disabled = true;
+  btn.textContent = t('sending');
 
   const payload = {
     type:      'survey',
@@ -1112,50 +1124,45 @@ async function submitSurvey() {
   try { await postToSheet(payload); } catch(e) {}
 
   document.getElementById('survey-result').style.display = 'block';
-  allBtns.forEach(b => { b.style.opacity = '0.5'; });
+  btn.style.opacity = '0.5';
 }
 
 // ─── SUBMIT CONTACT ───────────────────────────────────
 async function submitContact() {
-  const ko    = document.body.classList.contains('lang-ko');
   const name  = document.getElementById('cf-name').value.trim();
   const email = document.getElementById('cf-email').value.trim();
   const msg   = document.getElementById('cf-msg').value.trim();
 
-  if (!name || !msg) {
-    alert(ko ? '성함과 메시지를 입력해 주세요.' : 'Please enter your name and message.');
-    return;
-  }
+  if (!name || !msg) { alert(t('fillFields')); return; }
 
   const btn = document.querySelector('.contact-submit');
   btn.disabled = true;
-  btn.textContent = ko ? '처리 중...' : 'Sending...';
+  btn.textContent = t('sending');
 
-  postToSheet({ type: 'contact', name, email, message: msg })
-    .catch(() => {})
-    .finally(() => {
-      btn.disabled = false;
-      btn.innerHTML = ko
-        ? '<span>메시지 보내기</span>'
-        : '<span>Send Message</span>';
-      alert(ko
-        ? '✠ 메시지 감사합니다! 곧 연락 드리겠습니다.'
-        : '✠ Thank you for your message! We will be in touch soon.');
-      document.getElementById('cf-name').value  = '';
-      document.getElementById('cf-email').value = '';
-      document.getElementById('cf-msg').value   = '';
-    });
+  try { await postToSheet({ type: 'contact', name: name, email: email, message: msg }); } catch(e) {}
+
+  alert(t('contactThanks'));
+  btn.disabled = false;
+  btn.textContent = t('sendMsg');
+  document.getElementById('cf-name').value  = '';
+  document.getElementById('cf-email').value = '';
+  document.getElementById('cf-msg').value   = '';
 }
 
-// Wire contact button — avoids inline onclick conflict with async
-document.addEventListener('DOMContentLoaded', () => {
+// ─── INIT ─────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  // Init nav
+  document.querySelectorAll('nav a').forEach(function(a) {
+    a.style.display = a.getAttribute('data-lang') === 'en' ? 'inline-block' : 'none';
+  });
+  // Wire contact button
   const cBtn = document.querySelector('.contact-submit');
   if (cBtn) cBtn.onclick = submitContact;
+  // Render
+  applyTranslations();
+  renderResults(localVotes);
+  fetchLiveVotes();
 });
-
-// ─── INIT ─────────────────────────────────────────────
-renderResults(localVotes);
-fetchLiveVotes();
 </script>
 </body>
 </html>
