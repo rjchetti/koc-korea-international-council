@@ -945,7 +945,7 @@
         <p data-lang="ko">가입에 관심이 있으시거나, 프로그램에 대한 질문이 있으시거나, 파트너십을 원하신다면 — 연락 주시기 바랍니다. 콜럼버스 기사단 한국 국제 챕터는 모든 가톨릭 남성을 환영합니다.</p>
         <div class="contact-detail">
           <span class="icon">✉</span>
-          <span>koc.korea.international@gmail.com</span>
+          <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f79c9894d99c98859296d99e998392859996839e9899969bb7909a969e9bd994989a">[email&#160;protected]</a></span>
         </div>
         <div class="contact-detail">
           <span class="icon">✠</span>
@@ -976,95 +976,186 @@
 </footer>
 
 <script>
-// ─── LANGUAGE TOGGLE ───
+// ═══════════════════════════════════════════════════════
+//  CONFIGURATION — paste your Apps Script URL here
+// ═══════════════════════════════════════════════════════
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxkfwAg8Peo5ObpVCHoWlc5CafgeaJU-BYMWIi9TdEf_sKFCk5riM2GC_aI9Y2VopON/exec';
+
+// ─── LANGUAGE TOGGLE ───────────────────────────────────
 function setLang(lang) {
   document.body.classList.toggle('lang-ko', lang === 'ko');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
-  // Handle nav links inline
   document.querySelectorAll('nav a').forEach(a => {
     const l = a.getAttribute('data-lang');
     if (!l) return;
     a.style.display = (l === lang) ? 'inline-block' : 'none';
   });
-  // Handle the submit buttons in poll
   document.querySelectorAll('.poll-submit').forEach(btn => {
     const l = btn.getAttribute('data-lang');
     if (!l) return;
     btn.style.display = (l === lang) ? 'block' : 'none';
   });
-  // Re-render results for language
   renderResults();
 }
 
-// Init nav visibility
 document.querySelectorAll('nav a').forEach(a => {
   a.style.display = a.getAttribute('data-lang') === 'en' ? 'inline-block' : 'none';
 });
 
-// ─── POLL STATE (localStorage for persistence in browser) ───
-const POLL_KEY = 'koc_korea_poll';
-const SURVEY_KEY = 'koc_korea_survey';
-
+// ─── CHALLENGE DEFINITIONS ─────────────────────────────
 const challenges = [
-  { id: 'youth',        en: 'Youth faith formation & engagement',              ko: '청소년 신앙 교육 및 참여' },
-  { id: 'elderly',      en: 'Care for elderly & isolated members',             ko: '노인 및 고립된 구성원 돌봄' },
-  { id: 'family',       en: 'Family stability & marriage support',             ko: '가정 안정 및 혼인 지원' },
-  { id: 'poverty',      en: 'Poverty & economic hardship',                     ko: '빈곤 및 경제적 어려움' },
-  { id: 'multicultural',en: 'Multicultural & migrant community support',       ko: '다문화 및 이민자 공동체 지원' },
-  { id: 'mental',       en: 'Mental health & spiritual wellbeing',             ko: '정신 건강 및 영적 안녕' },
-  { id: 'vocations',    en: 'Supporting vocations',                            ko: '성직 및 수도 성소 지원' },
-  { id: 'prolife',      en: 'Pro-life initiatives & family values',            ko: '생명 존중 활동 및 가족 가치' },
+  { id: 'youth',         en: 'Youth faith formation & engagement',        ko: '청소년 신앙 교육 및 참여' },
+  { id: 'elderly',       en: 'Care for elderly & isolated members',       ko: '노인 및 고립된 구성원 돌봄' },
+  { id: 'family',        en: 'Family stability & marriage support',       ko: '가정 안정 및 혼인 지원' },
+  { id: 'poverty',       en: 'Poverty & economic hardship',               ko: '빈곤 및 경제적 어려움' },
+  { id: 'multicultural', en: 'Multicultural & migrant community support', ko: '다문화 및 이민자 공동체 지원' },
+  { id: 'mental',        en: 'Mental health & spiritual wellbeing',       ko: '정신 건강 및 영적 안녕' },
+  { id: 'vocations',     en: 'Supporting vocations',                      ko: '성직 및 수도 성소 지원' },
+  { id: 'prolife',       en: 'Pro-life initiatives & family values',      ko: '생명 존중 활동 및 가족 가치' },
 ];
 
-function getVotes() {
-  try { return JSON.parse(localStorage.getItem(POLL_KEY) || '{}'); } catch(e) { return {}; }
-}
-function saveVotes(v) { localStorage.setItem(POLL_KEY, JSON.stringify(v)); }
+// ─── LOCAL VOTE CACHE ──────────────────────────────────
+let localVotes = {};
+try { localVotes = JSON.parse(localStorage.getItem('koc_votes') || '{}'); } catch(e) {}
 
-function renderResults() {
-  const votes = getVotes();
-  const total = Object.values(votes).reduce((a,b)=>a+b, 0) || 1;
-  const lang = document.body.classList.contains('lang-ko') ? 'ko' : 'en';
-  const container = document.getElementById('results-bars');
-  container.innerHTML = challenges.map(c => {
-    const count = votes[c.id] || 0;
-    const pct = Math.round((count / total) * 100);
+// ─── RENDER RESULTS BARS ──────────────────────────────
+function renderResults(votesObj) {
+  const votes = votesObj || localVotes;
+  const total = Math.max(Object.values(votes).reduce((a,b) => a + Number(b), 0), 1);
+  const lang  = document.body.classList.contains('lang-ko') ? 'ko' : 'en';
+  document.getElementById('results-bars').innerHTML = challenges.map(c => {
+    const count = Number(votes[c.id] || 0);
+    const pct   = Math.round((count / total) * 100);
     return `<div class="result-bar-row">
-      <div class="label"><span>${c[lang]}</span><span>${pct}%</span></div>
-      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+      <div class="label">
+        <span>${c[lang]}</span>
+        <span>${count} vote${count !== 1 ? 's' : ''} · ${pct}%</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${pct}%"></div>
+      </div>
     </div>`;
   }).join('');
 }
 
-function submitPoll() {
-  const checked = Array.from(document.querySelectorAll('#poll-options input:checked')).map(i => i.value);
+// ─── FETCH LIVE VOTES FROM GOOGLE SHEETS ──────────────
+async function fetchLiveVotes() {
+  if (APPS_SCRIPT_URL === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') {
+    renderResults(localVotes); return;
+  }
+  try {
+    const res  = await fetch(`${APPS_SCRIPT_URL}?action=getVotes`);
+    const data = await res.json();
+    if (data.status === 'ok' && data.totals) {
+      localVotes = data.totals;
+      localStorage.setItem('koc_votes', JSON.stringify(localVotes));
+      renderResults(localVotes);
+    }
+  } catch(e) { renderResults(localVotes); }
+}
+
+// ─── POST TO GOOGLE SHEETS ────────────────────────────
+async function postToSheet(payload) {
+  if (APPS_SCRIPT_URL === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') return { status: 'ok' };
+  const res = await fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+  return res.json();
+}
+
+// ─── SUBMIT POLL VOTE ─────────────────────────────────
+async function submitPoll() {
+  const ko      = document.body.classList.contains('lang-ko');
+  const checked = Array.from(document.querySelectorAll('#poll-options input:checked'));
   if (checked.length === 0) {
-    alert(document.body.classList.contains('lang-ko')
-      ? '최소 하나를 선택해 주세요.'
-      : 'Please select at least one option.');
+    alert(ko ? '최소 하나를 선택해 주세요.' : 'Please select at least one option.');
     return;
   }
-  const votes = getVotes();
-  checked.forEach(v => { votes[v] = (votes[v] || 0) + 1; });
-  saveVotes(votes);
+  const allBtns = document.querySelectorAll('.poll-box .poll-submit');
+  allBtns.forEach(b => { b.disabled = true; b.style.opacity = '0.6'; });
+
+  const payload = { type: 'vote' };
+  challenges.forEach(c => { payload[c.id] = false; });
+  checked.forEach(i => { payload[i.value] = true; });
+  payload.other = document.getElementById('poll-other-text').value.trim();
+
+  // Optimistic local update
+  checked.forEach(i => { localVotes[i.value] = (Number(localVotes[i.value]) || 0) + 1; });
+  localStorage.setItem('koc_votes', JSON.stringify(localVotes));
+  renderResults(localVotes);
+
+  try { await postToSheet(payload); await fetchLiveVotes(); } catch(e) {}
+
+  allBtns.forEach(b => { b.style.opacity = '1'; });
   document.getElementById('poll-result').style.display = 'block';
   document.querySelectorAll('#poll-options input').forEach(i => i.disabled = true);
-  renderResults();
+  document.getElementById('poll-other-text').disabled = true;
 }
 
-function submitSurvey() {
+// ─── SUBMIT SURVEY ────────────────────────────────────
+async function submitSurvey() {
+  const ko      = document.body.classList.contains('lang-ko');
+  const allBtns = document.querySelectorAll('.survey-box .poll-submit');
+  allBtns.forEach(b => { b.disabled = true; b.textContent = ko ? '처리 중...' : 'Sending...'; });
+
+  const payload = {
+    type:      'survey',
+    name:      document.getElementById('s-name').value.trim(),
+    parish:    document.getElementById('s-parish').value.trim(),
+    role:      document.getElementById('s-role').value,
+    priority:  document.getElementById('s-priority').value.trim(),
+    volunteer: document.getElementById('s-volunteer').value,
+  };
+
+  try { await postToSheet(payload); } catch(e) {}
+
   document.getElementById('survey-result').style.display = 'block';
+  allBtns.forEach(b => { b.style.opacity = '0.5'; });
 }
 
-function submitContact() {
-  alert(document.body.classList.contains('lang-ko')
-    ? '메시지 감사합니다! 곧 연락 드리겠습니다.'
-    : 'Thank you for your message! We will be in touch soon.');
+// ─── SUBMIT CONTACT ───────────────────────────────────
+async function submitContact() {
+  const ko    = document.body.classList.contains('lang-ko');
+  const name  = document.getElementById('cf-name').value.trim();
+  const email = document.getElementById('cf-email').value.trim();
+  const msg   = document.getElementById('cf-msg').value.trim();
+
+  if (!name || !msg) {
+    alert(ko ? '성함과 메시지를 입력해 주세요.' : 'Please enter your name and message.');
+    return;
+  }
+
+  const btn = document.querySelector('.contact-submit');
+  btn.disabled = true;
+  btn.textContent = ko ? '처리 중...' : 'Sending...';
+
+  postToSheet({ type: 'contact', name, email, message: msg })
+    .catch(() => {})
+    .finally(() => {
+      btn.disabled = false;
+      btn.innerHTML = ko
+        ? '<span>메시지 보내기</span>'
+        : '<span>Send Message</span>';
+      alert(ko
+        ? '✠ 메시지 감사합니다! 곧 연락 드리겠습니다.'
+        : '✠ Thank you for your message! We will be in touch soon.');
+      document.getElementById('cf-name').value  = '';
+      document.getElementById('cf-email').value = '';
+      document.getElementById('cf-msg').value   = '';
+    });
 }
 
-// Init
-renderResults();
+// Wire contact button — avoids inline onclick conflict with async
+document.addEventListener('DOMContentLoaded', () => {
+  const cBtn = document.querySelector('.contact-submit');
+  if (cBtn) cBtn.onclick = submitContact;
+});
+
+// ─── INIT ─────────────────────────────────────────────
+renderResults(localVotes);
+fetchLiveVotes();
 </script>
 </body>
 </html>
