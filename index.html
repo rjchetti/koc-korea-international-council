@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knights of Columbus Korea — International Chapter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&family=Noto+Serif+KR:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C8972A;
+    --gold-light: #E8B84B;
+    --gold-dim: #8B6914;
+    --navy: #0D1B3E;
+    --navy-mid: #1A2E5C;
+    --navy-light: #243868;
+    --cream: #F7F3EC;
+    --cream-dark: #EDE6D8;
+    --red: #8B1A1A;
+    --text-dark: #1A1208;
+    --text-mid: #4A3B1E;
+    --text-light: #8A7A5C;
+    --white: #FFFFFF;
+    --shadow: 0 8px 40px rgba(13,27,62,0.18);
+    --shadow-gold: 0 4px 24px rgba(200,151,42,0.22);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Crimson Pro', 'Noto Serif KR', Georgia, serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ─── LANGUAGE TOGGLE ─── */
+  #lang-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: var(--navy);
+    border-bottom: 2px solid var(--gold);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    height: 44px;
+  }
+  #lang-bar .brand-mini {
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--navy-mid);
+    border: 1px solid var(--gold-dim);
+    border-radius: 100px;
+    padding: 4px;
+    cursor: pointer;
+  }
+  .lang-btn {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 4px 14px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: rgba(255,255,255,0.45);
+    background: transparent;
+  }
+  .lang-btn.active {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: fixed;
+    top: 44px; left: 0; right: 0;
+    z-index: 999;
+    background: rgba(13,27,62,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,151,42,0.25);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    padding: 0 2rem;
+  }
+  nav a {
+    display: inline-block;
+    color: rgba(247,243,236,0.75);
+    text-decoration: none;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 1rem 1.4rem;
+    transition: color 0.2s, border-color 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+  nav a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 6rem 2rem 4rem;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(200,151,42,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at 80% 80%, rgba(139,26,26,0.07) 0%, transparent 60%);
+  }
+  .hero-cross {
+    font-size: 3.5rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0.85;
+    animation: fadeUp 1s ease both;
+  }
+  .hero-chapter-label {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 1.2rem;
+    animation: fadeUp 1s 0.15s ease both;
+  }
+  #hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+    animation: fadeUp 1s 0.25s ease both;
+  }
+  #hero h1 span { color: var(--gold); }
+  .hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(247,243,236,0.7);
+    margin-bottom: 2.5rem;
+    animation: fadeUp 1s 0.35s ease both;
+  }
+  .hero-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 2rem;
+    animation: fadeUp 1s 0.4s ease both;
+  }
+  .hero-tagline {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: rgba(247,243,236,0.65);
+    max-width: 560px;
+    line-height: 1.8;
+    animation: fadeUp 1s 0.5s ease both;
+  }
+  .hero-cta {
+    display: inline-block;
+    margin-top: 2.5rem;
+    padding: 14px 40px;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.3s, box-shadow 0.3s;
+    animation: fadeUp 1s 0.6s ease both;
+  }
+  .hero-cta:hover { background: var(--gold-light); box-shadow: var(--shadow-gold); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION COMMONS ─── */
+  section { padding: 5rem 2rem; }
+  .section-inner { max-width: 1080px; margin: 0 auto; }
+  .section-label {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-title.light { color: var(--white); }
+  .section-divider {
+    width: 48px; height: 2px;
+    background: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .section-lead {
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--text-mid);
+    max-width: 640px;
+    line-height: 1.85;
+  }
+  .section-lead.light { color: rgba(247,243,236,0.75); }
+
+  /* ─── MISSION BAND ─── */
+  #mission {
+    background: var(--navy-mid);
+    padding: 3.5rem 2rem;
+    text-align: center;
+  }
+  #mission p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+    font-style: italic;
+    color: var(--cream);
+    max-width: 780px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+  #mission p span { color: var(--gold-light); }
+
+  /* ─── WHAT WE DO ─── */
+  #what-we-do { background: var(--cream); }
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .program-card {
+    background: var(--white);
+    border: 1px solid rgba(200,151,42,0.15);
+    border-top: 3px solid var(--gold);
+    padding: 2rem 1.6rem;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .program-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .program-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .program-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.65rem;
+  }
+  .program-card p {
+    font-size: 0.98rem;
+    font-weight: 300;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  /* ─── ABOUT / INTERNATIONAL CHAPTER ─── */
+  #about { background: var(--cream-dark); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
+  .about-visual {
+    background: var(--navy);
+    border: 2px solid var(--gold-dim);
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+  .about-visual::before {
+    content: '✠';
+    font-size: 5rem;
+    color: var(--gold);
+    opacity: 0.15;
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+  }
+  .about-visual h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .about-visual p {
+    color: rgba(247,243,236,0.7);
+    font-size: 0.95rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .values-list { list-style: none; margin-top: 1.5rem; }
+  .values-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-dark);
+    border-bottom: 1px solid rgba(200,151,42,0.12);
+  }
+  .values-list li span.bullet {
+    color: var(--gold);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ─── COMMUNITY VOTE / POLL ─── */
+  #poll {
+    background: var(--navy);
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  #poll::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 70% at 80% 20%, rgba(200,151,42,0.06) 0%, transparent 60%);
+  }
+  .poll-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-bottom: 3rem;
+  }
+  @media (max-width: 700px) { .poll-intro { grid-template-columns: 1fr; gap: 2rem; } }
+  .poll-box {
+    background: rgba(247,243,236,0.04);
+    border: 1px solid rgba(200,151,42,0.25);
+    padding: 2.5rem;
+  }
+  .poll-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .poll-options { list-style: none; margin: 1.2rem 0; }
+  .poll-option {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(200,151,42,0.1);
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 3px;
+    padding-left: 0.5rem;
+  }
+  .poll-option:hover { background: rgba(200,151,42,0.07); }
+  .poll-option input[type="checkbox"] {
+    appearance: none;
+    width: 18px; height: 18px;
+    border: 2px solid var(--gold-dim);
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .poll-option input[type="checkbox"]:checked {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .poll-option input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: -2px; left: 2px;
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .poll-option label {
+    color: rgba(247,243,236,0.85);
+    font-size: 0.98rem;
+    font-weight: 300;
+    cursor: pointer;
+    line-height: 1.5;
+  }
+  .poll-other {
+    margin-top: 1rem;
+  }
+  .poll-other input[type="text"] {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(200,151,42,0.3);
+    padding: 0.65rem 1rem;
+    color: var(--cream);
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .poll-other input:focus { border-color: var(--gold); }
+  .poll-other input::placeholder { color: rgba(247,243,236,0.3); }
+
+  .survey-box { }
+  .survey-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .form-row { margin-bottom: 1.1rem; }
+  .form-row label {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(200,151,42,0.25);
+    padding: 0.7rem 1rem;
+    color: var(--cream);
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.98rem;
+    outline: none;
+    transition: border-color 0.2s;
+    border-radius: 0;
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.09);
+  }
+  .form-row textarea { min-height: 90px; resize: vertical; }
+  .form-row select option { background: var(--navy); color: var(--cream); }
+
+  .poll-submit {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 13px 36px;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s;
+    width: 100%;
+  }
+  .poll-submit:hover { background: var(--gold-light); }
+  .poll-result {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(200,151,42,0.12);
+    border: 1px solid var(--gold-dim);
+    color: var(--gold-light);
+    font-size: 0.95rem;
+    text-align: center;
+  }
+  .results-bar-section {
+    margin-top: 3rem;
+    border-top: 1px solid rgba(200,151,42,0.2);
+    padding-top: 2.5rem;
+  }
+  .results-bar-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .result-bar-row { margin-bottom: 1.1rem; }
+  .result-bar-row .label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: rgba(247,243,236,0.7);
+    margin-bottom: 0.3rem;
+  }
+  .result-bar-row .label span { color: var(--gold-light); font-weight: 600; }
+  .bar-track {
+    background: rgba(255,255,255,0.08);
+    height: 8px;
+    border-radius: 0;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+    transition: width 1s ease;
+  }
+
+  /* ─── CONTACT ─── */
+  #contact { background: var(--cream); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 700px) { .contact-grid { grid-template-columns: 1fr; } }
+  .contact-info p {
+    font-size: 1rem;
+    color: var(--text-mid);
+    line-height: 1.85;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+  .contact-detail {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+    font-size: 0.98rem;
+    color: var(--text-mid);
+  }
+  .contact-detail .icon { color: var(--gold); font-size: 1.1rem; }
+  .contact-form input, .contact-form textarea {
+    width: 100%;
+    background: var(--white);
+    border: 1px solid rgba(200,151,42,0.25);
+    border-bottom: 2px solid rgba(200,151,42,0.3);
+    padding: 0.75rem 1rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    color: var(--text-dark);
+    outline: none;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+  }
+  .contact-form input:focus, .contact-form textarea:focus { border-bottom-color: var(--gold); }
+  .contact-form textarea { min-height: 120px; resize: vertical; }
+  .contact-submit {
+    padding: 13px 40px;
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 2px solid var(--gold-dim);
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+  }
+  .contact-submit:hover { background: var(--gold); color: var(--navy); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--navy);
+    border-top: 2px solid var(--gold-dim);
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  footer .cross { font-size: 2rem; color: var(--gold); opacity: 0.6; margin-bottom: 0.5rem; }
+  footer p {
+    color: rgba(247,243,236,0.4);
+    font-size: 0.85rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+  footer p strong { color: rgba(247,243,236,0.65); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    nav { overflow-x: auto; justify-content: flex-start; }
+    nav a { font-size: 0.82rem; padding: 0.9rem 0.9rem; }
+    #lang-bar .brand-mini { display: none; }
+  }
+
+  /* ─── LANGUAGE VISIBILITY ─── */
+  [data-lang="ko"] { display: none; }
+  body.lang-ko [data-lang="en"] { display: none; }
+  body.lang-ko [data-lang="ko"] { display: block; }
+  body.lang-ko [data-lang="ko"].inline { display: inline; }
+  body.lang-ko [data-lang="ko"].flex { display: flex; }
+  [data-lang="en"].inline { display: inline; }
+  [data-lang="en"].flex { display: flex; }
+</style>
+</head>
+<body>
+
+<!-- LANGUAGE BAR -->
+<div id="lang-bar">
+  <span class="brand-mini">✠ Knights of Columbus Korea</span>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btn-ko" onclick="setLang('ko')">한국어</button>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<nav>
+  <a data-lang="en" class="inline" href="#hero">Home</a>
+  <a data-lang="ko" class="inline" href="#hero">홈</a>
+  <a data-lang="en" class="inline" href="#what-we-do">What We Do</a>
+  <a data-lang="ko" class="inline" href="#what-we-do">활동 소개</a>
+  <a data-lang="en" class="inline" href="#about">About</a>
+  <a data-lang="ko" class="inline" href="#about">소개</a>
+  <a data-lang="en" class="inline" href="#poll">Community Vote</a>
+  <a data-lang="ko" class="inline" href="#poll">커뮤니티 투표</a>
+  <a data-lang="en" class="inline" href="#contact">Contact</a>
+  <a data-lang="ko" class="inline" href="#contact">연락처</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-cross">✠</div>
+  <p class="hero-chapter-label" data-lang="en">International Chapter · Korea</p>
+  <p class="hero-chapter-label" data-lang="ko">국제 챕터 · 한국</p>
+  <h1 data-lang="en">Knights of<br><span>Columbus</span></h1>
+  <h1 data-lang="ko">콜럼버스<br><span>기사단</span></h1>
+  <p class="hero-subtitle" data-lang="en">Faith. Charity. Unity. Patriotism.</p>
+  <p class="hero-subtitle" data-lang="ko">신앙 · 자선 · 단결 · 애국</p>
+  <div class="hero-divider"></div>
+  <p class="hero-tagline" data-lang="en">Uniting Catholic men in Korea to strengthen faith, serve communities, and lead families with purpose and love.</p>
+  <p class="hero-tagline" data-lang="ko">한국의 가톨릭 남성들이 함께 모여 신앙을 강화하고, 지역사회를 섬기며, 사랑과 사명으로 가정을 이끌어 갑니다.</p>
+  <a href="#poll" class="hero-cta" data-lang="en">Cast Your Vote</a>
+  <a href="#poll" class="hero-cta" data-lang="ko">투표 참여하기</a>
+</section>
+
+<!-- MISSION BAND -->
+<section id="mission">
+  <div class="section-inner">
+    <p data-lang="en">"We help Catholic men become <span>better husbands, better fathers</span> and better men — by deepening their relationship with God, putting their faith into action, and leading and protecting their families."</p>
+    <p data-lang="ko">"우리는 가톨릭 남성들이 <span>더 나은 남편, 더 나은 아버지</span>가 되도록 돕습니다 — 하느님과의 관계를 깊이하고, 신앙을 실천에 옮기며, 가정을 이끌고 보호함으로써."</p>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section id="what-we-do">
+  <div class="section-inner">
+    <div class="section-label" data-lang="en">Our Mission</div>
+    <div class="section-label" data-lang="ko">우리의 사명</div>
+    <h2 class="section-title" data-lang="en">What We Do</h2>
+    <h2 class="section-title" data-lang="ko">활동 소개</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead" data-lang="en">The Knights of Columbus International Chapter in Korea serves the Catholic community through faith formation, charity, and financial stewardship — all rooted in our core values.</p>
+    <p class="section-lead" data-lang="ko">한국 콜럼버스 기사단 국제 챕터는 신앙 교육, 자선 활동, 재정적 관리를 통해 가톨릭 공동체를 섬깁니다 — 모든 활동은 우리의 핵심 가치에 뿌리를 두고 있습니다.</p>
+
+    <div class="programs-grid">
+
+      <div class="program-card">
+        <div class="program-icon">🕯️</div>
+        <h3 data-lang="en">Faith Formation</h3>
+        <h3 data-lang="ko">신앙 교육</h3>
+        <p data-lang="en">We put faith first and challenge our members to do the same, helping them grow and lead their families and communities.</p>
+        <p data-lang="ko">신앙을 최우선으로 삼고 회원들이 신앙 안에서 성장하여 가정과 공동체를 이끌도록 돕습니다.</p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">🤝</div>
+        <h3 data-lang="en">Faith in Action</h3>
+        <h3 data-lang="ko">신앙의 실천</h3>
+        <p data-lang="en">Knights around the world put their faith into action through programs that impact their families, parishes and local communities.</p>
+        <p data-lang="ko">전 세계 기사단원들은 가정, 본당, 지역 공동체에 영향을 미치는 프로그램을 통해 신앙을 실천합니다.</p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">❤️</div>
+        <h3 data-lang="en">Charity</h3>
+        <h3 data-lang="ko">자선</h3>
+        <p data-lang="en">Knights of Columbus Charities is healing the suffering, protecting the vulnerable, strengthening families and building the church.</p>
+        <p data-lang="ko">콜럼버스 기사단 자선 사업은 고통받는 이들을 치유하고, 약자를 보호하며, 가정을 강화하고, 교회를 세워갑니다.</p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">🛡️</div>
+        <h3 data-lang="en">Insurance</h3>
+        <h3 data-lang="ko">보험</h3>
+        <p data-lang="en">Knights of Columbus offers insurance products designed to help you protect your family financially and plan for the future.</p>
+        <p data-lang="ko">콜럼버스 기사단은 가족의 재정적 보호와 미래 계획을 위한 보험 상품을 제공합니다.</p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">📈</div>
+        <h3 data-lang="en">Investments</h3>
+        <h3 data-lang="ko">투자</h3>
+        <p data-lang="en">Help secure your financial future with faith-based investing through Knights of Columbus Asset Advisors.</p>
+        <p data-lang="ko">콜럼버스 기사단 자산 어드바이저를 통해 신앙 기반 투자로 재정적 미래를 안전하게 준비하세요.</p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">🏦</div>
+        <h3 data-lang="en">Donor-Advised Funds</h3>
+        <h3 data-lang="ko">기부자 조언 펀드</h3>
+        <p data-lang="en">Knights of Columbus Charitable Fund offers a way to maximize your charitable impact through the largest Catholic donor-advised fund.</p>
+        <p data-lang="ko">콜럼버스 기사단 자선 펀드는 가장 큰 가톨릭 기부자 조언 펀드를 통해 자선 효과를 극대화할 수 있는 방법을 제공합니다.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label" data-lang="en">Who We Are</div>
+    <div class="section-label" data-lang="ko">우리는 누구인가</div>
+    <h2 class="section-title" data-lang="en">The International Chapter in Korea</h2>
+    <h2 class="section-title" data-lang="ko">한국 국제 챕터</h2>
+    <div class="section-divider"></div>
+
+    <div class="about-grid">
+      <div>
+        <p class="section-lead" data-lang="en">The International Chapter brings together Catholic men living in Korea — expatriates, Korean nationals, and bilingual families — under the shared banner of the world's largest Catholic fraternal organization.</p>
+        <p class="section-lead" data-lang="ko">국제 챕터는 한국에 거주하는 가톨릭 남성들 — 외국인, 한국 국적자, 이중언어 가정 — 을 세계 최대의 가톨릭 형제 단체의 기치 아래 하나로 모읍니다.</p>
+        <ul class="values-list">
+          <li>
+            <span class="bullet">✠</span>
+            <span data-lang="en"><strong>Charity</strong> — Serving those in need within the Catholic community</span>
+            <span data-lang="ko"><strong>자선</strong> — 가톨릭 공동체 내 어려운 이웃 섬기기</span>
+          </li>
+          <li>
+            <span class="bullet">✠</span>
+            <span data-lang="en"><strong>Unity</strong> — Building brotherhood across cultures and languages</span>
+            <span data-lang="ko"><strong>단결</strong> — 문화와 언어를 초월한 형제애 구축</span>
+          </li>
+          <li>
+            <span class="bullet">✠</span>
+            <span data-lang="en"><strong>Fraternity</strong> — Supporting one another through life's journey</span>
+            <span data-lang="ko"><strong>우애</strong> — 삶의 여정에서 서로 지지하기</span>
+          </li>
+          <li>
+            <span class="bullet">✠</span>
+            <span data-lang="en"><strong>Patriotism</strong> — Honoring our faith and our civic duties</span>
+            <span data-lang="ko"><strong>애국</strong> — 신앙과 시민적 의무 존중</span>
+          </li>
+        </ul>
+      </div>
+      <div class="about-visual">
+        <h3 data-lang="en">Men on a Mission</h3>
+        <h3 data-lang="ko">사명을 가진 남성들</h3>
+        <p data-lang="en">Founded in 1882 by Venerable Father Michael McGivney, the Knights of Columbus has grown into a global fraternity of 2 million Catholic men, united in faith and service. Our Korea International Chapter carries that mission into the heart of Asia.</p>
+        <p data-lang="ko">1882년 마이클 맥기브니 신부에 의해 창설된 콜럼버스 기사단은 전 세계 200만 명의 가톨릭 남성들이 신앙과 봉사 안에서 하나 된 세계적인 형제 단체로 성장했습니다. 한국 국제 챕터는 그 사명을 아시아의 심장부로 이어갑니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY VOTE / POLL -->
+<section id="poll">
+  <div class="section-inner">
+    <div class="section-label" data-lang="en" style="color:var(--gold-light)">Shape Our Mission</div>
+    <div class="section-label" data-lang="ko" style="color:var(--gold-light)">우리의 사명을 함께 만들어가요</div>
+    <h2 class="section-title light" data-lang="en">Community Vote</h2>
+    <h2 class="section-title light" data-lang="ko">커뮤니티 투표</h2>
+    <div class="section-divider"></div>
+    <p class="section-lead light" data-lang="en">Help us identify the greatest needs in the Catholic community in Korea. Your voice shapes our priorities. Select all that apply, then share your own perspective.</p>
+    <p class="section-lead light" data-lang="ko">한국 가톨릭 공동체의 가장 큰 필요가 무엇인지 알려주세요. 여러분의 목소리가 우리의 우선순위를 결정합니다. 해당되는 것을 모두 선택하고, 여러분의 의견을 나눠주세요.</p>
+
+    <div class="poll-intro">
+      <!-- LEFT: CHECKBOXES -->
+      <div class="poll-box">
+        <h3 data-lang="en">What are the biggest challenges facing our Catholic community?</h3>
+        <h3 data-lang="ko">우리 가톨릭 공동체가 직면한 가장 큰 도전은 무엇인가요?</h3>
+        <ul class="poll-options" id="poll-options">
+          <li class="poll-option">
+            <input type="checkbox" id="c1" name="challenge" value="youth">
+            <label for="c1">
+              <span data-lang="en">Youth faith formation & engagement</span>
+              <span data-lang="ko">청소년 신앙 교육 및 참여</span>
+            </label>
+          </li>
+          <li class="poll-option">
+            <input type="checkbox" id="c2" name="challenge" value="elderly">
+            <label for="c2">
+              <span data-lang="en">Care for elderly & isolated members</span>
+              <span data-lang="ko">노인 및 고립된 구성원 돌봄</span>
+            </label>
+          </li>
+          <li class="poll-option">
+            <input type="checkbox" id="c3" name="challenge" value="family">
+            <label for="c3">
+              <span data-lang="en">Family stability & marriage support</span>
+              <span data-lang="ko">가정 안정 및 혼인 지원</span>
+            </label>
+          </li>
+          <li class="poll-option">
+            <input type="checkbox" id="c4" name="challenge" value="poverty">
+            <label for="c4">
+              <span data-lang="en">Poverty & economic hardship</span>
+              <span data-lang="ko">빈곤 및 경제적 어려움</span>
+            </label>
+          </li>
+          <li class="poll-option">
+            <input type="checkbox" id="c5" name="challenge" value="multicultural">
+            <label for="c5">
+              <span data-lang="en">Multicultural & migrant community support</span>
+              <span data-lang="ko">다문화 및 이민자 공동체 지원</span>
+            </label>
+          </li>
+          <li class="poll-option">
+            <input type="checkbox" id="c6" name="challenge" value="mental">
+            <label for="c6">
+              <span data-lang="en">Mental health & spiritual wellbeing</span>
+              <span data-lang="ko">정신 건강 및 영적 안녕</span>
+            </label>
+          </li>
+          <li class="poll-option">
+            <input type="checkbox" id="c7" name="challenge" value="vocations">
+            <label for="c7">
+              <span data-lang="en">Supporting vocations to priesthood & religious life</span>
+              <span data-lang="ko">성직 및 수도 성소 지원</span>
+            </label>
+          </li>
+          <li class="poll-option">
+            <input type="checkbox" id="c8" name="challenge" value="prolife">
+            <label for="c8">
+              <span data-lang="en">Pro-life initiatives & family values</span>
+              <span data-lang="ko">생명 존중 활동 및 가족 가치</span>
+            </label>
+          </li>
+        </ul>
+        <div class="poll-other">
+          <input type="text" id="poll-other-text" placeholder="Other — tell us what you think... / 기타 의견을 알려주세요...">
+        </div>
+        <button class="poll-submit" onclick="submitPoll()" data-lang="en">Submit My Vote</button>
+        <button class="poll-submit" onclick="submitPoll()" data-lang="ko" style="display:none">투표 제출하기</button>
+        <div class="poll-result" id="poll-result">
+          <span data-lang="en">✠ Thank you — your voice has been heard. May God bless your service.</span>
+          <span data-lang="ko">✠ 감사합니다 — 여러분의 목소리를 소중히 담겠습니다. 하느님께서 여러분의 봉사에 축복 내리시길 빕니다.</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: SURVEY FORM -->
+      <div class="survey-box">
+        <h3 data-lang="en">Tell Us More About You</h3>
+        <h3 data-lang="ko">여러분에 대해 더 알려주세요</h3>
+        <div class="form-row">
+          <label data-lang="en">Your Name (Optional)</label>
+          <label data-lang="ko">성함 (선택사항)</label>
+          <input type="text" id="s-name" placeholder="John Kim / 김요한">
+        </div>
+        <div class="form-row">
+          <label data-lang="en">Parish / Diocese</label>
+          <label data-lang="ko">본당 / 교구</label>
+          <input type="text" id="s-parish" placeholder="e.g. Myeongdong Cathedral / 명동성당">
+        </div>
+        <div class="form-row">
+          <label data-lang="en">Your Role in the Community</label>
+          <label data-lang="ko">공동체에서의 역할</label>
+          <select id="s-role">
+            <option value="" data-lang="en">Select...</option>
+            <option value="" data-lang="ko">선택하세요...</option>
+            <option value="knight" data-lang="en">Current Knight</option>
+            <option value="knight" data-lang="ko">현 기사단원</option>
+            <option value="interested" data-lang="en">Interested in Joining</option>
+            <option value="interested" data-lang="ko">가입 희망</option>
+            <option value="parishioner" data-lang="en">Parishioner</option>
+            <option value="parishioner" data-lang="ko">본당 신자</option>
+            <option value="priest" data-lang="en">Priest / Religious</option>
+            <option value="priest" data-lang="ko">성직자 / 수도자</option>
+            <option value="other" data-lang="en">Other</option>
+            <option value="other" data-lang="ko">기타</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label data-lang="en">If we could only focus on ONE area this year, what would it be?</label>
+          <label data-lang="ko">올해 단 하나에만 집중해야 한다면, 무엇이어야 할까요?</label>
+          <textarea id="s-priority" placeholder="Share your thoughts... / 의견을 나눠주세요..."></textarea>
+        </div>
+        <div class="form-row">
+          <label data-lang="en">Would you like to volunteer or help?</label>
+          <label data-lang="ko">자원봉사 또는 도움을 제공하고 싶으신가요?</label>
+          <select id="s-volunteer">
+            <option data-lang="en">Yes, I'd love to help</option>
+            <option data-lang="ko">네, 돕고 싶습니다</option>
+            <option data-lang="en">Maybe — tell me more</option>
+            <option data-lang="ko">가능할 것 같습니다 — 더 알고 싶습니다</option>
+            <option data-lang="en">Not at this time</option>
+            <option data-lang="ko">지금은 어렵습니다</option>
+          </select>
+        </div>
+        <button class="poll-submit" onclick="submitSurvey()" data-lang="en">Submit Survey</button>
+        <button class="poll-submit" onclick="submitSurvey()" data-lang="ko" style="display:none">설문 제출하기</button>
+        <div class="poll-result" id="survey-result">
+          <span data-lang="en">✠ Your survey has been received. Thank you for helping us serve better.</span>
+          <span data-lang="ko">✠ 설문이 접수되었습니다. 더 나은 봉사를 위해 도와주셔서 감사합니다.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE RESULTS -->
+    <div class="results-bar-section">
+      <h3 data-lang="en">Live Community Results</h3>
+      <h3 data-lang="ko">실시간 커뮤니티 투표 결과</h3>
+      <div id="results-bars"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label" data-lang="en">Get In Touch</div>
+    <div class="section-label" data-lang="ko">연락하기</div>
+    <h2 class="section-title" data-lang="en">Contact Us</h2>
+    <h2 class="section-title" data-lang="ko">연락처</h2>
+    <div class="section-divider"></div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p data-lang="en">Whether you're interested in joining, have questions about our programs, or want to partner with us — we'd love to hear from you. The Knights of Columbus Korea International Chapter welcomes all Catholic men.</p>
+        <p data-lang="ko">가입에 관심이 있으시거나, 프로그램에 대한 질문이 있으시거나, 파트너십을 원하신다면 — 연락 주시기 바랍니다. 콜럼버스 기사단 한국 국제 챕터는 모든 가톨릭 남성을 환영합니다.</p>
+        <div class="contact-detail">
+          <span class="icon">✉</span>
+          <span>koc.korea.international@gmail.com</span>
+        </div>
+        <div class="contact-detail">
+          <span class="icon">✠</span>
+          <span data-lang="en">Knights of Columbus — Korea International Chapter</span>
+          <span data-lang="ko">콜럼버스 기사단 — 한국 국제 챕터</span>
+        </div>
+      </div>
+      <div class="contact-form">
+        <input type="text" id="cf-name" placeholder="Your Name / 성함">
+        <input type="email" id="cf-email" placeholder="Email / 이메일">
+        <textarea id="cf-msg" placeholder="Message / 메시지를 입력해 주세요..."></textarea>
+        <button class="contact-submit" onclick="submitContact()">
+          <span data-lang="en">Send Message</span>
+          <span data-lang="ko">메시지 보내기</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="cross">✠</div>
+  <p data-lang="en"><strong>Knights of Columbus — Korea International Chapter</strong></p>
+  <p data-lang="ko"><strong>콜럼버스 기사단 — 한국 국제 챕터</strong></p>
+  <p style="margin-top:0.5rem" data-lang="en">Faith · Charity · Unity · Patriotism</p>
+  <p style="margin-top:0.5rem" data-lang="ko">신앙 · 자선 · 단결 · 애국</p>
+</footer>
+
+<script>
+// ─── LANGUAGE TOGGLE ───
+function setLang(lang) {
+  document.body.classList.toggle('lang-ko', lang === 'ko');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
+  // Handle nav links inline
+  document.querySelectorAll('nav a').forEach(a => {
+    const l = a.getAttribute('data-lang');
+    if (!l) return;
+    a.style.display = (l === lang) ? 'inline-block' : 'none';
+  });
+  // Handle the submit buttons in poll
+  document.querySelectorAll('.poll-submit').forEach(btn => {
+    const l = btn.getAttribute('data-lang');
+    if (!l) return;
+    btn.style.display = (l === lang) ? 'block' : 'none';
+  });
+  // Re-render results for language
+  renderResults();
+}
+
+// Init nav visibility
+document.querySelectorAll('nav a').forEach(a => {
+  a.style.display = a.getAttribute('data-lang') === 'en' ? 'inline-block' : 'none';
+});
+
+// ─── POLL STATE (localStorage for persistence in browser) ───
+const POLL_KEY = 'koc_korea_poll';
+const SURVEY_KEY = 'koc_korea_survey';
+
+const challenges = [
+  { id: 'youth',        en: 'Youth faith formation & engagement',              ko: '청소년 신앙 교육 및 참여' },
+  { id: 'elderly',      en: 'Care for elderly & isolated members',             ko: '노인 및 고립된 구성원 돌봄' },
+  { id: 'family',       en: 'Family stability & marriage support',             ko: '가정 안정 및 혼인 지원' },
+  { id: 'poverty',      en: 'Poverty & economic hardship',                     ko: '빈곤 및 경제적 어려움' },
+  { id: 'multicultural',en: 'Multicultural & migrant community support',       ko: '다문화 및 이민자 공동체 지원' },
+  { id: 'mental',       en: 'Mental health & spiritual wellbeing',             ko: '정신 건강 및 영적 안녕' },
+  { id: 'vocations',    en: 'Supporting vocations',                            ko: '성직 및 수도 성소 지원' },
+  { id: 'prolife',      en: 'Pro-life initiatives & family values',            ko: '생명 존중 활동 및 가족 가치' },
+];
+
+function getVotes() {
+  try { return JSON.parse(localStorage.getItem(POLL_KEY) || '{}'); } catch(e) { return {}; }
+}
+function saveVotes(v) { localStorage.setItem(POLL_KEY, JSON.stringify(v)); }
+
+function renderResults() {
+  const votes = getVotes();
+  const total = Object.values(votes).reduce((a,b)=>a+b, 0) || 1;
+  const lang = document.body.classList.contains('lang-ko') ? 'ko' : 'en';
+  const container = document.getElementById('results-bars');
+  container.innerHTML = challenges.map(c => {
+    const count = votes[c.id] || 0;
+    const pct = Math.round((count / total) * 100);
+    return `<div class="result-bar-row">
+      <div class="label"><span>${c[lang]}</span><span>${pct}%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function submitPoll() {
+  const checked = Array.from(document.querySelectorAll('#poll-options input:checked')).map(i => i.value);
+  if (checked.length === 0) {
+    alert(document.body.classList.contains('lang-ko')
+      ? '최소 하나를 선택해 주세요.'
+      : 'Please select at least one option.');
+    return;
+  }
+  const votes = getVotes();
+  checked.forEach(v => { votes[v] = (votes[v] || 0) + 1; });
+  saveVotes(votes);
+  document.getElementById('poll-result').style.display = 'block';
+  document.querySelectorAll('#poll-options input').forEach(i => i.disabled = true);
+  renderResults();
+}
+
+function submitSurvey() {
+  document.getElementById('survey-result').style.display = 'block';
+}
+
+function submitContact() {
+  alert(document.body.classList.contains('lang-ko')
+    ? '메시지 감사합니다! 곧 연락 드리겠습니다.'
+    : 'Thank you for your message! We will be in touch soon.');
+}
+
+// Init
+renderResults();
+</script>
+</body>
+</html>
